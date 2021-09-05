@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "150111756229",
+    "project_id": "flutter-f9bdf",
+    "storage_bucket": "flutter-f9bdf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150111756229:android:6fa71b0923a0da0c52b5ac",
+        "android_client_info": {
+          "package_name": "komiserlikvemisyonkoruma.komiseryardimciligisinavinahazirlik.komiseryardimciligi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "150111756229-tqu8gtqsaccsc3a09monc780ien0k6pm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3EDiujSu9Q1lUl4_phi4Ab0iOtXjTh_M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "150111756229-tqu8gtqsaccsc3a09monc780ien0k6pm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

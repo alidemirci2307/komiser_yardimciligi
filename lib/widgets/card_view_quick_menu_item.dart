@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:komiseryardimciligi/constants/StaticColors.dart';
+import 'package:komiseryardimciligi/constants/static_colors.dart';
 
 class CardViewMenuItem extends StatelessWidget {
 
