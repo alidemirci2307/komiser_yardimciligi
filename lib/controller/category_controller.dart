@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:komiseryardimciligi/constants/firebase.dart';
+import 'package:komiseryardimciligi/controller/app_controller.dart';
 import 'package:komiseryardimciligi/models/category_model.dart';
 import 'package:komiseryardimciligi/utils/ui_utils.dart';
 
@@ -20,13 +21,15 @@ class CategoryController extends GetxController {
 
   Stream<List<CategoryModel>> getAllCategories() => firebaseFirestore
       .collection(collection)
+      .orderBy("category_sort",descending: false)
       .snapshots()
       .map((query) => query.docs
           .map((item) => CategoryModel.fromMap(item.data()))
           .toList());
 
   Future<void> addCategory(CategoryModel categoryModel) async {
-    firebaseCategories
+    AppController.isShowingProgressBar.value = true;
+    await firebaseCategories
         .add(categoryModel.toMap())
         .then((value) => {
               categoryModel.id = value.id,
@@ -36,25 +39,29 @@ class CategoryController extends GetxController {
               print("Ekleme hatası : $error"),
               UIUtils.showMySnackbar(
                   "Kategori Ekleme", "İşlem başarısız olunmuştur $error"),
+              AppController.isShowingProgressBar.value = false,
             });
+    // AppController.isShowingProgressBar.value = false;
   }
 
   Future<void> updateCategory(String doc, CategoryModel categoryModel) async {
-    firebaseCategories
+    AppController.isShowingProgressBar.value = true;
+    await firebaseCategories
         .doc(doc)
         .update(categoryModel.toMap())
         .then((value) => {
               UIUtils.showMySnackbar(
                   "Başarılı", "İşlem başarılı bir şekilde tamamlanmıştır."),
-              print("Kategori Güncelleme başarılı ${categoryModel.categoryName} $doc")
+              print(
+                  "Kategori Güncelleme başarılı ${categoryModel.categoryName} $doc")
             })
-        .catchError(
-          (error) => {
-            print(
-                "Güncelleme hatası ${categoryModel.categoryName} $doc -> $error"),
-            UIUtils.showMySnackbar(
-                "Kategori Ekleme", "İşlem başarısız olunmuştur $error"),
-          }
-        );
+        .catchError((error) => {
+              print(
+                  "Güncelleme hatası ${categoryModel.categoryName} $doc -> $error"),
+              UIUtils.showMySnackbar(
+                  "Kategori Ekleme", "İşlem başarısız olunmuştur $error"),
+            });
+
+    AppController.isShowingProgressBar.value = false;
   }
 }
