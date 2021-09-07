@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:komiseryardimciligi/constants/static_colors.dart';
 
 class CardViewMenuItem extends StatelessWidget {
@@ -6,10 +7,9 @@ class CardViewMenuItem extends StatelessWidget {
   String text;
   IconData icon;
   Color bgColor;
-  Color textColor;
   Function clickListener;
 
-  CardViewMenuItem({required this.text,required this.icon,required this.bgColor,required this.textColor, required this.clickListener});
+  CardViewMenuItem({required this.text,required this.icon,required this.bgColor, required this.clickListener});
 
 
   @override
@@ -17,13 +17,18 @@ class CardViewMenuItem extends StatelessWidget {
     return Card(
       elevation: 10,
       child: InkWell(
-        splashColor: StaticColors.primary_color.withAlpha(30),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Icon(icon,color: StaticColors.primary_color,size: 30,),
-            Text("Test Çöz",style: TextStyle(color: textColor,fontSize: 14,),),
-          ],
+        splashColor: Get.theme.primaryColor.withAlpha(30),
+        child: SizedBox(
+          width: 100,
+          child: Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Icon(icon,color: Get.theme.accentColor,size: 30,),
+                Text(text,style: TextStyle(fontSize: 14,),),
+              ],
+            ),
+          ),
         ),
         onTap: (){
           clickListener();

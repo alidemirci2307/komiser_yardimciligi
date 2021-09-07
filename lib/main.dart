@@ -1,12 +1,22 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:komiseryardimciligi/constants/firebase.dart';
 import 'package:komiseryardimciligi/constants/static_values.dart';
+import 'package:komiseryardimciligi/controller/app_controller.dart';
+import 'package:komiseryardimciligi/controller/category_controller.dart';
+import 'package:komiseryardimciligi/screens/category/category_add.dart';
+import 'package:komiseryardimciligi/screens/category/category_menu.dart';
 import 'package:komiseryardimciligi/screens/home_page.dart';
-import 'package:komiseryardimciligi/screens/category_menu.dart';
 
-void main() {
+
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  await initialization.then((value) {
+    Get.put(AppController());
+    Get.put(CategoryController());
+  });
   runApp(MyApp());
 }
 
@@ -16,21 +26,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
+      getPages: [
+        GetPage(name: HomePage.routeName, page:() => HomePage()),
+        GetPage(name: CategoryMenu.routeName, page:() => CategoryMenu()),
+        GetPage(name: CategoryAdd.routeName, page:() => CategoryAdd()),
+      ],
       title: StaticValues.app_short_name,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        textTheme: TextTheme(
-          bodyText1: TextStyle(
-            color: Colors.white,
-          ),
-          bodyText2: TextStyle(
-            color: Colors.white,
-          ),
-        ),
       ),
-      home: FutureBuilder(
+      home:HomePage(),
+
+      /* FutureBuilder(
         future: _initialization,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
@@ -45,8 +54,8 @@ class MyApp extends StatelessWidget {
             );
           }
         },
-      ),
-      onGenerateRoute: (settings) {
+      ),*/
+/*      onGenerateRoute: (settings) {
         switch (settings.name) {
           case HomePage.routeName:
             return MaterialPageRoute(builder: (context) => HomePage());
@@ -55,7 +64,7 @@ class MyApp extends StatelessWidget {
           default:
             return null;
         }
-      },
+      },*/
     );
   }
 }

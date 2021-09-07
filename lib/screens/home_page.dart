@@ -1,11 +1,12 @@
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:komiseryardimciligi/constants/static_colors.dart';
 import 'package:komiseryardimciligi/constants/static_values.dart';
 import 'package:komiseryardimciligi/widgets/card_view_quick_menu_item.dart';
 import 'package:komiseryardimciligi/widgets/drawer_item.dart';
 
-import 'category_menu.dart';
+import 'category/category_menu.dart';
 
 class HomePage extends StatelessWidget {
   static const routeName = "/";
@@ -23,13 +24,13 @@ class HomePage extends StatelessWidget {
                     children: [
                       Text(
                         StaticValues.app_name,
-                        style: Theme.of(context).textTheme.bodyText1,
+                        style: TextStyle(color: Colors.white,fontSize: 16),
                         textAlign: TextAlign.center,
                       ),
                       const Icon(
                         Icons.local_police_outlined,
                         color: Colors.white,
-                        size: 70.0,
+                        size: 50.0,
                       ),
                       Container(
                         child: Align(
@@ -52,8 +53,8 @@ class HomePage extends StatelessWidget {
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
                       colors: [
-                        StaticColors.drawer_header_start,
-                        StaticColors.drawer_header_end
+                        Get.theme.primaryColor,
+                        Get.theme.primaryColorDark
                       ]),
 /*                image: DecorationImage(
                   image: AssetImage(
@@ -70,8 +71,7 @@ class HomePage extends StatelessWidget {
                 ),
                 child: Text(
                   "Çalışma Bölümü",
-                  style: TextStyle(
-                      color: StaticColors.drawer_content_title, fontSize: 12),
+                  style: TextStyle(fontSize: 12),
                 ),
               ),
               DrawerMenuItem(
@@ -80,7 +80,7 @@ class HomePage extends StatelessWidget {
                 icon: Icons.quiz,
                 isDivider: false,
                 clickListener: () {
-                  Navigator.pushNamed(context, Menu.routeName);
+                  Get.to(() => CategoryMenu());
                   //Navigator.pop(context);
                 },
               ),
@@ -110,7 +110,7 @@ class HomePage extends StatelessWidget {
                 child: Text(
                   "Özel Bölüm",
                   style: TextStyle(
-                      color: StaticColors.drawer_content_title, fontSize: 12),
+                       fontSize: 12),
                 ),
               ),
               DrawerMenuItem(
@@ -149,7 +149,7 @@ class HomePage extends StatelessWidget {
                 child: Text(
                   "Özel Bölüm",
                   style: TextStyle(
-                      color: StaticColors.drawer_content_title, fontSize: 12),
+                       fontSize: 12),
                 ),
               ),
               DrawerMenuItem(
@@ -176,19 +176,27 @@ class HomePage extends StatelessWidget {
         ),
         appBar: AppBar(
           title: Text(StaticValues.app_short_name),
+          actions: [
+            IconButton(
+              icon: Get.isDarkMode ? Icon(Icons.wb_sunny) : Icon(Icons.nights_stay),
+              tooltip: Get.isDarkMode ? 'Gündüz Moduna Geç' : 'Gece Moduna Geç',
+              onPressed: () {
+                Get.changeTheme(Get.isDarkMode? ThemeData.light(): ThemeData.dark());
+              },
+            ),
+          ],
         ),
         body: GridView.count(
           primary: false,
           padding: const EdgeInsets.all(20),
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
-          crossAxisCount: 3,
+          crossAxisCount: 2,
           children: <Widget>[
             CardViewMenuItem(
               text: "Test Çöz",
               icon: Icons.quiz,
               bgColor: Colors.pink,
-              textColor: Colors.black,
               clickListener: () {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
@@ -201,14 +209,12 @@ class HomePage extends StatelessWidget {
               text: "Çıkmış Sorular",
               icon: Icons.quiz,
               bgColor: Colors.pink,
-              textColor: Colors.black,
               clickListener: () {},
             ),
             CardViewMenuItem(
               text: "Ders Notları",
               icon: Icons.quiz,
               bgColor: Colors.pink,
-              textColor: Colors.black,
               clickListener: () {},
             ),
           ],

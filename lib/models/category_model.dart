@@ -1,10 +1,23 @@
-class Category {
-  final String? categoryName;
+class CategoryModel {
+  static const CATEGORY_NAME = "category_name";
+  static const ID = "id";
 
-  Category({this.categoryName});
+  String? id, categoryName;
 
-  Map<String, dynamic> toMap() => {"category_name": categoryName};
+  CategoryModel({this.id,this.categoryName});
 
-  factory Category.fromMap(Map<String,dynamic> categoryMap) => Category(
-     categoryName: categoryMap["category_name"]);
+
+  CategoryModel.fromMap(Map<String,dynamic> data) {
+    id = data[ID];
+    categoryName = data[CATEGORY_NAME];
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      ID: id,
+      CATEGORY_NAME: categoryName,
+    };
+
+
+  }
 }

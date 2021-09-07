@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:komiseryardimciligi/constants/static_colors.dart';
 
 class DrawerMenuItem extends StatelessWidget {
@@ -22,21 +23,20 @@ class DrawerMenuItem extends StatelessWidget {
         ListTile(
           leading: Icon(
             icon,
-            color: StaticColors.primary_color,
+            color: Get.theme.accentColor,
             size: 30,
           ),
           title: Text(
             title,
-            style: TextStyle(color: StaticColors.drawer_menu_title, fontSize: 12),
+            style: TextStyle(fontSize: 12),
           ),
           subtitle: Text(
             subtitle,
             style:
-            TextStyle(color: StaticColors.drawer_menu_subtitle, fontSize: 9),
+            TextStyle(fontSize: 9),
           ),
           trailing: Icon(
             Icons.arrow_right,
-            color: StaticColors.primary_color,
             size: 30,
           ),
           onTap: (){
@@ -45,7 +45,7 @@ class DrawerMenuItem extends StatelessWidget {
           horizontalTitleGap: 0,
           minVerticalPadding: 0,
         ),
-        if(isDivider == true) Divider(height: 1,color: Theme.of(context).primaryColorLight,thickness: 1,),
+        if(isDivider == true) Divider(height: 1,color: Get.theme.primaryColorLight,thickness: 1,),
 
       ],
     );
