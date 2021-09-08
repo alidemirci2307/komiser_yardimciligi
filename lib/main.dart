@@ -27,11 +27,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      getPages: [
-        GetPage(name: HomePage.routeName, page:() => HomePage()),
-        GetPage(name: CategoryMenu.routeName, page:() => CategoryMenu()),
-        GetPage(name: CategoryAdd.routeName, page:() => CategoryAdd()),
-      ],
       title: StaticValues.app_short_name,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

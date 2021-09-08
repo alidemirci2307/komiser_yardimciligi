@@ -8,8 +8,9 @@ class CardViewMenuItem extends StatelessWidget {
   IconData icon;
   Color bgColor;
   Function clickListener;
+  Function? onLongClickListener;
 
-  CardViewMenuItem({required this.text,required this.icon,required this.bgColor, required this.clickListener});
+  CardViewMenuItem({required this.text,required this.icon,required this.bgColor, required this.clickListener, this.onLongClickListener});
 
 
   @override
@@ -32,6 +33,12 @@ class CardViewMenuItem extends StatelessWidget {
         ),
         onTap: (){
           clickListener();
+        },
+        onLongPress: (){
+          if(onLongClickListener != null){
+            onLongClickListener!();
+          }
+
         },
       ),
 

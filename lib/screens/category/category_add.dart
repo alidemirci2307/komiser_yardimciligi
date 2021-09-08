@@ -5,25 +5,32 @@ import 'package:komiseryardimciligi/constants/controller.dart';
 import 'package:komiseryardimciligi/controller/app_controller.dart';
 import 'package:komiseryardimciligi/models/category_model.dart';
 
-class CategoryAdd extends StatefulWidget {
+class CategoryAdd extends StatelessWidget{
   static const routeName = "/categoryAdd";
 
-  @override
-  _CategoryAddState createState() => _CategoryAddState();
-}
+  bool isUpdate = false;
+  CategoryModel? category;
 
-class _CategoryAddState extends State<CategoryAdd> {
+  CategoryAdd({required this.isUpdate, this.category});
+
+
   final textEditingControllerCategoryName = new TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
-  var _currentSliderValue = 25.0.obs;
+  var _currentSliderValue = 25.obs;
 
   @override
   Widget build(BuildContext context) {
+
+    if(category != null){
+      textEditingControllerCategoryName.text = category!.categoryName!;
+      _currentSliderValue.value = category!.categorySort!;
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("Kategori Ekleme"),
+        title: isUpdate ?  Text("Kategori Güncelleme") : Text("Kategori Ekleme"),
       ),
       body: Obx(
         () => AppController.isShowingProgressBar.value
@@ -51,17 +58,16 @@ class _CategoryAddState extends State<CategoryAdd> {
                     Row(
                       children: [
                         Text("Sıra (küçük olan önde olur): "),
+                        Text(_currentSliderValue.value.toInt().toString()),
                         Expanded(
                           child: Slider(
-                            value: _currentSliderValue.value,
+                            value: _currentSliderValue.value.toDouble(),
                             min: 1,
                             max: 25,
-                            divisions: 100,
+                            divisions: 25,
                             label: _currentSliderValue.round().toString(),
                             onChanged: (double value) {
-                              setState(() {
-                                _currentSliderValue.value = value;
-                              });
+                                _currentSliderValue.value = value.round();
                             },
                           ),
                         ),
@@ -79,17 +85,32 @@ class _CategoryAddState extends State<CategoryAdd> {
                               },
                               child: const Text('İptal Et'),
                             ),
-                            ElevatedButton(
+
+                            isUpdate ? TextButton(
                               onPressed: () {
+                                categoryController.deleteCategory(category!);
+                              },
+                              child: const Text('Sil'),
+                            ) : SizedBox(),
+                            ElevatedButton(
+                              onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
-                                  categoryController.addCategory(CategoryModel(
-                                      categoryName:
-                                          textEditingControllerCategoryName.text
-                                              .trim(),categorySort: _currentSliderValue.value.toInt()));
-                                  textEditingControllerCategoryName.text = "";
+                                  if(isUpdate){
+                                    category!.categoryName = textEditingControllerCategoryName.text;
+                                    category!.categorySort = _currentSliderValue.value;
+                                    categoryController.updateCategory(category!);
+                                    textEditingControllerCategoryName.text = "";
+                                  }else{
+                                    categoryController.addCategory(CategoryModel(
+                                        categoryName:
+                                        textEditingControllerCategoryName.text
+                                            .trim(),categorySort: _currentSliderValue.value.toInt()));
+                                    textEditingControllerCategoryName.text = "";
+                                  }
+
                                 }
                               },
-                              child: const Text('Kaydet'),
+                              child: isUpdate ? const Text('Güncelle') : const Text('Kaydet'),
                             ),
                           ],
                         ),

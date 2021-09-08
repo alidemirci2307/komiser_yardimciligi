@@ -28,7 +28,7 @@ class CategoryMenu extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add,),
         onPressed: (){
-          Get.to(()=>CategoryAdd());
+          Get.to(()=>CategoryAdd(isUpdate: false));
           //categoryController.categoryAdd(CategoryModel(categoryName: "Matematik"));
         },
       ),
@@ -50,6 +50,9 @@ class SingleCategoryItem extends StatelessWidget {
       clickListener: () {
 /*        categoryModel.categoryName ="ali";
         categoryController.categoryUpdate("29YqDQxm7rzJGISWTLiZ", categoryModel);*/
+      },
+      onLongClickListener: (){
+        Get.to(()=>CategoryAdd(isUpdate: true,category: categoryModel,));
       },
     );
   }

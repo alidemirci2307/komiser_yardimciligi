@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:komiseryardimciligi/constants/firebase.dart';
 import 'package:komiseryardimciligi/controller/app_controller.dart';
 import 'package:komiseryardimciligi/models/category_model.dart';
+import 'package:komiseryardimciligi/screens/category/category_menu.dart';
 import 'package:komiseryardimciligi/utils/ui_utils.dart';
 
 class CategoryController extends GetxController {
@@ -21,7 +23,7 @@ class CategoryController extends GetxController {
 
   Stream<List<CategoryModel>> getAllCategories() => firebaseFirestore
       .collection(collection)
-      .orderBy("category_sort",descending: false)
+      .orderBy("category_sort", descending: false)
       .snapshots()
       .map((query) => query.docs
           .map((item) => CategoryModel.fromMap(item.data()))
@@ -33,18 +35,66 @@ class CategoryController extends GetxController {
         .add(categoryModel.toMap())
         .then((value) => {
               categoryModel.id = value.id,
-              updateCategory(value.id, categoryModel)
+              updateCategoryWithDoc(value.id, categoryModel)
             })
         .catchError((error) => {
-              print("Ekleme hatası : $error"),
-              UIUtils.showMySnackbar(
-                  "Kategori Ekleme", "İşlem başarısız olunmuştur $error"),
-              AppController.isShowingProgressBar.value = false,
+              UIUtils.showFailureDialog(categoryModel.categoryName!),
             });
+    AppController.isShowingProgressBar.value = false;
     // AppController.isShowingProgressBar.value = false;
   }
 
-  Future<void> updateCategory(String doc, CategoryModel categoryModel) async {
+  Future<void> updateCategory(CategoryModel categoryModel) async {
+    AppController.isShowingProgressBar.value = true;
+    await firebaseCategories
+        .doc(categoryModel.id)
+        .update(categoryModel.toMap())
+        .then((value) => {
+              Get.back(),
+              UIUtils.showSuccessDialog(categoryModel.categoryName!),
+            })
+        .catchError((error) => {
+              UIUtils.showFailureDialog(categoryModel.categoryName!),
+            });
+    AppController.isShowingProgressBar.value = false;
+  }
+
+  Future<void> deleteCategory(CategoryModel categoryModel) async {
+    Get.defaultDialog(
+      title: "Silmek istediğinizden emin misiniz?",
+      middleText:
+          "${categoryModel.categoryName} silinecektir. Onaylıyor musunuz?",
+      actions: [
+        ElevatedButton(
+          onPressed: () async {
+            Get.back();
+            AppController.isShowingProgressBar.value = true;
+
+            await firebaseCategories
+                .doc(categoryModel.id)
+                .delete()
+                .then((value) => {
+                      UIUtils.showSuccessDialog(categoryModel.categoryName!),
+                    })
+                .catchError((error) => {
+                      UIUtils.showFailureDialog(categoryModel.categoryName!),
+                    });
+            AppController.isShowingProgressBar.value = false;
+          },
+          child: Text("Evet"),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            Get.back();
+          },
+          child: Text("Hayır"),
+        ),
+      ],
+    );
+  }
+
+  Future<void> updateCategoryWithDoc(
+      String doc, CategoryModel categoryModel) async {
     AppController.isShowingProgressBar.value = true;
     await firebaseCategories
         .doc(doc)
