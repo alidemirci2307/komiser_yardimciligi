@@ -1,8 +1,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:komiseryardimciligi/constants/controller.dart';
 import 'package:komiseryardimciligi/constants/static_colors.dart';
 import 'package:komiseryardimciligi/constants/static_values.dart';
+import 'package:komiseryardimciligi/controller/firebase_storage_controller.dart';
+import 'package:komiseryardimciligi/utils/ui_utils.dart';
 import 'package:komiseryardimciligi/widgets/card_view_quick_menu_item.dart';
 import 'package:komiseryardimciligi/widgets/drawer_item.dart';
 
@@ -90,7 +93,8 @@ class HomePage extends StatelessWidget {
                 icon: Icons.question_answer,
                 isDivider: false,
                 clickListener: () {
-                  Navigator.pop(context);
+                  Get.back();
+                  FirebaseStorageProcessController.uploadImage(context, "categories");
                 },
               ),
               DrawerMenuItem(

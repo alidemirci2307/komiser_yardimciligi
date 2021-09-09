@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:komiseryardimciligi/constants/firebase.dart';
 import 'package:komiseryardimciligi/controller/app_controller.dart';
 import 'package:komiseryardimciligi/models/category_model.dart';
-import 'package:komiseryardimciligi/screens/category/category_menu.dart';
 import 'package:komiseryardimciligi/utils/ui_utils.dart';
 
 class CategoryController extends GetxController {
@@ -100,18 +99,16 @@ class CategoryController extends GetxController {
         .doc(doc)
         .update(categoryModel.toMap())
         .then((value) => {
-              UIUtils.showMySnackbar(
-                  "Başarılı", "İşlem başarılı bir şekilde tamamlanmıştır."),
-              print(
-                  "Kategori Güncelleme başarılı ${categoryModel.categoryName} $doc")
+      UIUtils.showSuccessDialog(categoryModel.categoryName!),
             })
         .catchError((error) => {
-              print(
-                  "Güncelleme hatası ${categoryModel.categoryName} $doc -> $error"),
-              UIUtils.showMySnackbar(
-                  "Kategori Ekleme", "İşlem başarısız olunmuştur $error"),
+      UIUtils.showFailureDialog(categoryModel.categoryName!),
             });
 
     AppController.isShowingProgressBar.value = false;
   }
+
+
+
+
 }

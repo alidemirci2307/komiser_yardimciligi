@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class UIUtils {
 /*  static void showMySnackbar(String title, String message) {
@@ -9,7 +10,7 @@ class UIUtils {
         colorText: Get.theme.accentColor);
   }*/
 
-  static void showExitDefaultDialog(String title, String middleText) {
+  static showExitDefaultDialog(String title, String middleText) {
     Get.defaultDialog(
       title: title,
       middleText: middleText,
@@ -22,7 +23,7 @@ class UIUtils {
     );
   }
 
-  static void showSuccessDialog(String data) {
+  static showSuccessDialog(String data) {
     Get.defaultDialog(
       title: "Başarılı İşlem",
       middleText: "($data) - İşlem başarıyla gerçekleştirilmiştir.",
@@ -35,7 +36,7 @@ class UIUtils {
     );
   }
 
-  static void showFailureDialog(String data) {
+  static showFailureDialog(String data) {
     Get.defaultDialog(
       title: "Başarısız İşlem",
       middleText: "($data) - Teknik bir sebepten dolayı işlem gerçekleştirilemedi.",
@@ -46,5 +47,10 @@ class UIUtils {
         Get.back();
       },
     );
+  }
+
+  static Future<XFile?> pickImage() async {
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    return pickedFile;
   }
 }
