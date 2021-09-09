@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:komiseryardimciligi/constants/controller.dart';
 import 'package:komiseryardimciligi/controller/category_controller.dart';
 import 'package:komiseryardimciligi/models/category_model.dart';
+import 'package:komiseryardimciligi/screens/category/card_view_category_menu_item.dart';
 import 'package:komiseryardimciligi/screens/category/category_add.dart';
 import 'package:komiseryardimciligi/widgets/card_view_quick_menu_item.dart';
 
@@ -43,9 +44,9 @@ class SingleCategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CardViewMenuItem(
+    return CardViewCategoryMenuItem(
       text: categoryModel.categoryName.toString(),
-      icon: Icons.quiz,
+      fileURL: categoryModel.categoryIconURL.toString(),
       bgColor: Colors.pink,
       clickListener: () {
 /*        categoryModel.categoryName ="ali";

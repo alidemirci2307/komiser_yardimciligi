@@ -94,7 +94,7 @@ class HomePage extends StatelessWidget {
                 isDivider: false,
                 clickListener: () {
                   Get.back();
-                  FirebaseStorageProcessController.uploadImage(context, "categories");
+
                 },
               ),
               DrawerMenuItem(

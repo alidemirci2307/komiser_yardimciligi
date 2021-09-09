@@ -49,7 +49,7 @@ class CategoryController extends GetxController {
         .doc(categoryModel.id)
         .update(categoryModel.toMap())
         .then((value) => {
-              Get.back(),
+
               UIUtils.showSuccessDialog(categoryModel.categoryName!),
             })
         .catchError((error) => {
@@ -68,7 +68,6 @@ class CategoryController extends GetxController {
           onPressed: () async {
             Get.back();
             AppController.isShowingProgressBar.value = true;
-
             await firebaseCategories
                 .doc(categoryModel.id)
                 .delete()
