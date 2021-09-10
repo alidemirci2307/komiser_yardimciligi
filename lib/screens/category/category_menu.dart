@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:komiseryardimciligi/constants/controller.dart';
+import 'package:komiseryardimciligi/constants/static_values.dart';
 import 'package:komiseryardimciligi/controller/category_controller.dart';
 import 'package:komiseryardimciligi/models/category_model.dart';
 import 'package:komiseryardimciligi/screens/category/card_view_category_menu_item.dart';
@@ -26,12 +27,15 @@ class CategoryMenu extends StatelessWidget {
           children: categoryController.categories.map((CategoryModel category) {
             return SingleCategoryItem(categoryModel: category);
           }).toList())),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add,),
-        onPressed: (){
-          Get.to(()=>CategoryAddUpdateDelete(isUpdate: false));
-          //categoryController.categoryAdd(CategoryModel(categoryName: "Matematik"));
-        },
+      floatingActionButton: Visibility(
+        visible: StaticValues.isAdmin,
+        child: FloatingActionButton(
+          child: const Icon(Icons.add,),
+          onPressed: (){
+            Get.to(()=>CategoryAddUpdateDelete(isUpdate: false));
+            //categoryController.categoryAdd(CategoryModel(categoryName: "Matematik"));
+          },
+        ),
       ),
     );
   }

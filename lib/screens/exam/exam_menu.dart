@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:komiseryardimciligi/constants/controller.dart';
+import 'package:komiseryardimciligi/constants/static_values.dart';
 import 'package:komiseryardimciligi/models/exam_model.dart';
 import 'package:komiseryardimciligi/screens/exam/exam_add_update_delete.dart';
 
@@ -25,12 +26,15 @@ class ExamMenu extends StatelessWidget {
           children: examController.exams.map((ExamModel exam) {
             return SingleExamItem(examModel: exam);
           }).toList())),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add,),
-        onPressed: (){
-          Get.to(()=>ExamAddUpdateDelete(isUpdate: false));
-          //categoryController.categoryAdd(CategoryModel(categoryName: "Matematik"));
-        },
+      floatingActionButton: Visibility(
+        visible: StaticValues.isAdmin,
+        child: FloatingActionButton(
+          child: const Icon(Icons.add,),
+          onPressed: (){
+            Get.to(()=>ExamAddUpdateDelete(isUpdate: false));
+            //categoryController.categoryAdd(CategoryModel(categoryName: "Matematik"));
+          },
+        ),
       ),
     );
   }

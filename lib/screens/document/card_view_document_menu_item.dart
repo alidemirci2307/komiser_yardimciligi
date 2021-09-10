@@ -1,18 +1,21 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:komiseryardimciligi/constants/static_values.dart';
 
 class CardViewDocumentMenuItem extends StatelessWidget {
-
   String text;
   String fileURL;
   Color bgColor;
   Function clickListener;
   Function? onLongClickListener;
 
-  CardViewDocumentMenuItem({required this.text,required this.fileURL,required this.bgColor, required this.clickListener, this.onLongClickListener});
-
+  CardViewDocumentMenuItem(
+      {required this.text,
+      required this.fileURL,
+      required this.bgColor,
+      required this.clickListener,
+      this.onLongClickListener});
 
   @override
   Widget build(BuildContext context) {
@@ -29,27 +32,36 @@ class CardViewDocumentMenuItem extends StatelessWidget {
                 CachedNetworkImage(
                   height: 50,
                   width: 50,
-                  placeholder: (context, url) => Center(
-                      child: const CircularProgressIndicator()),
+                  placeholder: (context, url) =>
+                      Center(child: const CircularProgressIndicator()),
                   imageUrl: fileURL,
-                  errorWidget: (context, url, error) => Icon(Icons.picture_as_pdf,color: Get.theme.primaryColor,size: 50,),
+                  errorWidget: (context, url, error) => Icon(
+                    Icons.picture_as_pdf,
+                    color: Get.theme.primaryColor,
+                    size: 50,
+                  ),
                 ),
-                Text(text,style: TextStyle(fontSize: 14,),),
+                Text(
+                  text,
+                  style: TextStyle(
+                    fontSize: 14,
+                  ),
+                ),
               ],
             ),
           ),
         ),
-        onTap: (){
+        onTap: () {
           clickListener();
         },
-        onLongPress: (){
-          if(onLongClickListener != null){
-            onLongClickListener!();
+        onLongPress: () {
+          if (StaticValues.isAdmin) {
+            if (onLongClickListener != null) {
+              onLongClickListener!();
+            }
           }
-
         },
       ),
-
     );
   }
 }

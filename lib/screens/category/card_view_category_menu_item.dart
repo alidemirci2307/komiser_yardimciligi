@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:komiseryardimciligi/constants/static_values.dart';
 
 
 class CardViewCategoryMenuItem extends StatelessWidget {
@@ -42,10 +43,11 @@ class CardViewCategoryMenuItem extends StatelessWidget {
           clickListener();
         },
         onLongPress: (){
-          if(onLongClickListener != null){
-            onLongClickListener!();
+          if(StaticValues.isAdmin){
+            if(onLongClickListener != null){
+              onLongClickListener!();
+            }
           }
-
         },
       ),
 

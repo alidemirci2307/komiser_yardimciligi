@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:komiseryardimciligi/constants/controller.dart';
+import 'package:komiseryardimciligi/constants/static_values.dart';
 import 'package:komiseryardimciligi/models/document_model.dart';
 import 'package:komiseryardimciligi/screens/document/document_add_update_delete.dart';
 import 'package:komiseryardimciligi/screens/document/pdf_viewer.dart';
@@ -25,14 +26,17 @@ class DocumentMenu extends StatelessWidget {
           children: documentController.documents.map((DocumentModel document) {
             return SingleDocumentItem(documentModel: document);
           }).toList())),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(
-          Icons.add,
+      floatingActionButton: Visibility(
+        visible: StaticValues.isAdmin,
+        child: FloatingActionButton(
+          child: const Icon(
+            Icons.add,
+          ),
+          onPressed: () {
+            Get.to(() => DocumentAddUpdateDelete(isUpdate: false));
+            //categoryController.categoryAdd(CategoryModel(categoryName: "Matematik"));
+          },
         ),
-        onPressed: () {
-          Get.to(() => DocumentAddUpdateDelete(isUpdate: false));
-          //categoryController.categoryAdd(CategoryModel(categoryName: "Matematik"));
-        },
       ),
     );
   }

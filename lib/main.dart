@@ -14,6 +14,7 @@ import 'controller/exam_controller.dart';
 void main() async{
   InternetControl.internetListener();
   WidgetsFlutterBinding.ensureInitialized();
+
   await initialization.then((value) {
     Get.put(AppController());
     Get.put(CategoryController());

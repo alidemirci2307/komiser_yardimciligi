@@ -7,6 +7,7 @@ import 'package:komiseryardimciligi/constants/static_values.dart';
 import 'package:komiseryardimciligi/controller/firebase_storage_controller.dart';
 import 'package:komiseryardimciligi/screens/document/document_menu.dart';
 import 'package:komiseryardimciligi/screens/exam/exam_menu.dart';
+import 'package:komiseryardimciligi/screens/question/question_add_update_delete.dart';
 import 'package:komiseryardimciligi/utils/ui_utils.dart';
 import 'package:komiseryardimciligi/widgets/card_view_quick_menu_item.dart';
 import 'package:komiseryardimciligi/widgets/drawer_item.dart';
@@ -136,8 +137,7 @@ class HomePage extends StatelessWidget {
                 icon: Icons.book,
                 isDivider: false,
                 clickListener: () {
-                  Navigator.pop(context);
-
+                  Get.back();
                 },
               ),
               DrawerMenuItem(
@@ -207,11 +207,7 @@ class HomePage extends StatelessWidget {
               icon: Icons.quiz,
               bgColor: Colors.pink,
               clickListener: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text("Deneme"),
-                  ),
-                );
+                 Get.to(()=>QuestionAddUpdateDelete(false));
               },
             ),
             CardViewMenuItem(
