@@ -14,8 +14,7 @@ class FirebaseStorageProcessController {
       FilePickerResult? result = await FilePicker.platform.pickFiles();
       if (result != null) {
         Reference ref = firebaseStorage.ref("/$directory").child(Uuid().v1());
-        UploadTask uploadTask = ref.putData(result.files.single.bytes!,
-            SettableMetadata(contentType: "image/png"));
+        UploadTask uploadTask = ref.putData(result.files.single.bytes!);
         TaskSnapshot taskSnapshot = await uploadTask;
         await taskSnapshot.ref
             .getDownloadURL()

@@ -7,13 +7,13 @@ import 'package:komiseryardimciligi/controller/app_controller.dart';
 import 'package:komiseryardimciligi/controller/firebase_storage_controller.dart';
 import 'package:komiseryardimciligi/models/category_model.dart';
 //flutter run -d chrome --web-renderer html
-class CategoryAdd extends StatelessWidget {
+class CategoryAddUpdateDelete extends StatelessWidget {
   static const routeName = "/categoryAdd";
 
   bool isUpdate = false;
   CategoryModel? category;
 
-  CategoryAdd({required this.isUpdate, this.category});
+  CategoryAddUpdateDelete({required this.isUpdate, this.category});
 
   final textEditingControllerCategoryName = new TextEditingController();
   final textEditingControllerImageURL = new TextEditingController();
@@ -55,6 +55,7 @@ class CategoryAdd extends StatelessWidget {
                               placeholder: (context, url) => Center(
                                   child: const CircularProgressIndicator()),
                               imageUrl: fileURL.value,
+                              errorWidget: (context, url, error) => Icon(Icons.category,color: Get.theme.primaryColor,size: 50,),
                             ),
                             IconButton(
                               icon: const Icon(Icons.update),

@@ -5,7 +5,7 @@ import 'package:komiseryardimciligi/constants/controller.dart';
 import 'package:komiseryardimciligi/controller/category_controller.dart';
 import 'package:komiseryardimciligi/models/category_model.dart';
 import 'package:komiseryardimciligi/screens/category/card_view_category_menu_item.dart';
-import 'package:komiseryardimciligi/screens/category/category_add.dart';
+import 'package:komiseryardimciligi/screens/category/category_add_update_delete.dart';
 import 'package:komiseryardimciligi/widgets/card_view_quick_menu_item.dart';
 
 class CategoryMenu extends StatelessWidget {
@@ -29,7 +29,7 @@ class CategoryMenu extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add,),
         onPressed: (){
-          Get.to(()=>CategoryAdd(isUpdate: false));
+          Get.to(()=>CategoryAddUpdateDelete(isUpdate: false));
           //categoryController.categoryAdd(CategoryModel(categoryName: "Matematik"));
         },
       ),
@@ -53,7 +53,7 @@ class SingleCategoryItem extends StatelessWidget {
         categoryController.categoryUpdate("29YqDQxm7rzJGISWTLiZ", categoryModel);*/
       },
       onLongClickListener: (){
-        Get.to(()=>CategoryAdd(isUpdate: true,category: categoryModel,));
+        Get.to(()=>CategoryAddUpdateDelete(isUpdate: true,category: categoryModel,));
       },
     );
   }
