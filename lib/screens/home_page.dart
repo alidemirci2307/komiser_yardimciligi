@@ -8,6 +8,7 @@ import 'package:komiseryardimciligi/controller/firebase_storage_controller.dart'
 import 'package:komiseryardimciligi/screens/document/document_menu.dart';
 import 'package:komiseryardimciligi/screens/exam/exam_menu.dart';
 import 'package:komiseryardimciligi/screens/question/question_add_update_delete.dart';
+import 'package:komiseryardimciligi/screens/question/question_menu.dart';
 import 'package:komiseryardimciligi/utils/ui_utils.dart';
 import 'package:komiseryardimciligi/widgets/card_view_quick_menu_item.dart';
 import 'package:komiseryardimciligi/widgets/drawer_item.dart';
@@ -207,14 +208,16 @@ class HomePage extends StatelessWidget {
               icon: Icons.quiz,
               bgColor: Colors.pink,
               clickListener: () {
-                 Get.to(()=>QuestionAddUpdateDelete(false));
+                 Get.to(()=>QuestionAddUpdateDelete(isUpdate: false,));
               },
             ),
             CardViewMenuItem(
               text: "Çıkmış Sorular",
               icon: Icons.quiz,
               bgColor: Colors.pink,
-              clickListener: () {},
+              clickListener: () {
+                Get.to(()=>QuestionList());
+              },
             ),
             CardViewMenuItem(
               text: "Ders Notları",

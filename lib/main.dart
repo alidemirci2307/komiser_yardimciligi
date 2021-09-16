@@ -5,6 +5,7 @@ import 'package:komiseryardimciligi/constants/firebase.dart';
 import 'package:komiseryardimciligi/constants/static_values.dart';
 import 'package:komiseryardimciligi/controller/app_controller.dart';
 import 'package:komiseryardimciligi/controller/category_controller.dart';
+import 'package:komiseryardimciligi/controller/question_controller.dart';
 import 'package:komiseryardimciligi/screens/home_page.dart';
 import 'package:komiseryardimciligi/utils/internet_control.dart';
 
@@ -12,7 +13,7 @@ import 'controller/document_controller.dart';
 import 'controller/exam_controller.dart';
 
 void main() async{
-  InternetControl.internetListener();
+  //InternetControl.internetListener();
   WidgetsFlutterBinding.ensureInitialized();
 
   await initialization.then((value) {
@@ -20,6 +21,7 @@ void main() async{
     Get.put(CategoryController());
     Get.put(ExamController());
     Get.put(DocumentController());
+    Get.put(QuestionController());
   });
   runApp(MyApp());
 }
